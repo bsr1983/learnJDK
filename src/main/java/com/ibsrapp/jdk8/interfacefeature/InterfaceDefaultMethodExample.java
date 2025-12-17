@@ -64,13 +64,13 @@ public class InterfaceDefaultMethodExample {
     
     public static void example1_DefaultMethod() {
         System.out.println("=== 示例1：接口默认方法 ===");
-        
-        Vehicle car = new Car();
+
+        Car car = new Car();
         car.start();
         car.stop(); // 使用默认实现
         car.honk(); // 使用重写的实现
-        
-        Vehicle bike = new Bike();
+
+        Bike bike = new Bike();
         bike.start();
         bike.stop(); // 使用默认实现
         bike.honk(); // 使用默认实现

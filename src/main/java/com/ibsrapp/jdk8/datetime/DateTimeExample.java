@@ -50,6 +50,7 @@ public class DateTimeExample {
         System.out.println("月份值：" + today.getMonthValue());
         System.out.println("日期：" + today.getDayOfMonth());
         System.out.println("星期：" + today.getDayOfWeek());
+        System.out.println("星期值：" + today.getDayOfWeek().getValue());
         
         // 日期计算
         LocalDate tomorrow = today.plusDays(1);
@@ -61,6 +62,11 @@ public class DateTimeExample {
         System.out.println("下周：" + nextWeek);
         System.out.println("下月：" + nextMonth);
         System.out.println("明年：" + nextYear);
+
+        System.out.println("昨天：" + today.minusDays(1));
+        System.out.println("上周：" + today.minusWeeks(1));
+        System.out.println("上月：" + today.minusMonths(1));
+        System.out.println("去年：" + today.minusYears(1));
     }
 
     /**
@@ -244,7 +250,7 @@ public class DateTimeExample {
     public static void example8_TemporalAdjusters() {
         System.out.println("\n=== 示例8：日期调整器 ===");
         
-        LocalDate date = LocalDate.of(2024, 3, 15);
+        LocalDate date = LocalDate.now();
         System.out.println("原始日期：" + date);
         
         // 获取月份的第一天
