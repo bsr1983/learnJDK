@@ -186,6 +186,28 @@ public class StreamEnhancementExample {
     }
 
     /**
+     * 示例7：有序与无序流的差异
+     * takeWhile/dropWhile依赖遇到顺序，unordered可能产生不同结果
+     */
+    public static void example7_OrderedVsUnordered() {
+        System.out.println("\n=== 示例7：有序与无序流的差异 ===");
+
+        List<Integer> numbers = List.of(2, 4, 6, 7, 8, 10);
+
+        List<Integer> ordered = numbers.stream()
+                                       .takeWhile(n -> n % 2 == 0)
+                                       .toList();
+        System.out.println("ordered takeWhile even: " + ordered);
+
+        List<Integer> unordered = numbers.stream()
+                                         .unordered()
+                                         .takeWhile(n -> n % 2 == 0)
+                                         .toList();
+        System.out.println("unordered takeWhile even: " + unordered);
+        System.out.println("Note: unordered stream may change encounter order.");
+    }
+
+    /**
      * 主方法：运行所有示例
      */
     public static void main(String[] args) {
@@ -197,6 +219,7 @@ public class StreamEnhancementExample {
         example4_OfNullable();
         example5_IterateEnhancement();
         example6_RealWorldUsage();
+        example7_OrderedVsUnordered();
         
         System.out.println("\n========== 示例运行完成 ==========");
     }

@@ -152,6 +152,24 @@ public class JDK25FeaturesExample {
     }
 
     /**
+     * 示例6：文本处理小技巧
+     * 使用现代字符串API提高可读性
+     */
+    public static void example6_TextProcessing() {
+        System.out.println("\n=== 示例6：文本处理小技巧 ===");
+
+        String raw = "  line-1 \n  line-2 \n  line-3  ";
+        String cleaned = raw.strip();
+
+        long lineCount = cleaned.lines()
+                                .filter(line -> !line.isBlank())
+                                .count();
+
+        System.out.println("cleaned: " + cleaned);
+        System.out.println("lineCount: " + lineCount);
+    }
+
+    /**
      * 主方法：运行所有示例
      */
     public static void main(String[] args) {
@@ -171,6 +189,7 @@ public class JDK25FeaturesExample {
         example3_SequencedCollections();
         example4_TextFeatures();
         example5_ComprehensiveUsage();
+        example6_TextProcessing();
         
         System.out.println("\n========== 示例运行完成 ==========");
     }

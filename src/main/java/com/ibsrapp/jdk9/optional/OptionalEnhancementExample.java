@@ -193,6 +193,29 @@ public class OptionalEnhancementExample {
     }
 
     /**
+     * 示例7：or()的惰性执行
+     * Supplier只在Optional为空时执行
+     */
+    public static void example7_LazySupplier() {
+        System.out.println("\n=== 示例7：or()的惰性执行 ===");
+
+        Optional<String> present = Optional.of("primary");
+        Optional<String> empty = Optional.empty();
+
+        Optional<String> result1 = present.or(() -> {
+            System.out.println("fallback supplier invoked (should not print)");
+            return Optional.of("fallback");
+        });
+        System.out.println("present result: " + result1.get());
+
+        Optional<String> result2 = empty.or(() -> {
+            System.out.println("fallback supplier invoked");
+            return Optional.of("fallback");
+        });
+        System.out.println("empty result: " + result2.get());
+    }
+
+    /**
      * 主方法：运行所有示例
      */
     public static void main(String[] args) {
@@ -204,6 +227,7 @@ public class OptionalEnhancementExample {
         example4_UserAuthentication();
         example5_CombinedUsage();
         example6_Comparison();
+        example7_LazySupplier();
         
         System.out.println("\n========== 示例运行完成 ==========");
     }

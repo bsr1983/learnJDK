@@ -113,6 +113,29 @@ public class FilesEnhancementExample {
     }
 
     /**
+     * 示例4：writeString选项
+     * 演示CREATE、TRUNCATE和APPEND的差异
+     */
+    public static void example4_WriteOptions() {
+        System.out.println("\n=== 示例4：writeString选项 ===");
+
+        try {
+            Path tempFile = Files.createTempFile("options", ".txt");
+
+            Files.writeString(tempFile, "line-1\n", StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+            Files.writeString(tempFile, "line-2\n", StandardOpenOption.APPEND);
+            Files.writeString(tempFile, "line-3\n", StandardOpenOption.APPEND);
+
+            String content = Files.readString(tempFile);
+            System.out.println("内容：\n" + content);
+
+            Files.deleteIfExists(tempFile);
+        } catch (IOException e) {
+            System.out.println("错误：" + e.getMessage());
+        }
+    }
+
+    /**
      * 主方法：运行所有示例
      */
     public static void main(String[] args) {
@@ -121,6 +144,7 @@ public class FilesEnhancementExample {
         example1_ReadString();
         example2_WriteString();
         example3_RealWorldUsage();
+        example4_WriteOptions();
         
         System.out.println("\n========== 示例运行完成 ==========");
     }

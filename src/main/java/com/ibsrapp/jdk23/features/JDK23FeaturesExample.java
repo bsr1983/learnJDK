@@ -1,6 +1,7 @@
 package com.ibsrapp.jdk23.features;
 
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 /**
@@ -80,6 +81,26 @@ public class JDK23FeaturesExample {
     }
 
     /**
+     * 示例4：现代Stream写法
+     * 展示更少中间集合的处理方式
+     */
+    public static void example4_MapMultiStyle() {
+        System.out.println("\n=== 示例4：现代Stream写法 ===");
+
+        List<String> lines = List.of("alpha beta", "gamma", "delta epsilon");
+
+        List<String> words = lines.stream()
+                                  .mapMulti((String line, Consumer<String> sink) -> {
+                                      for (String word : line.split(" ")) {
+                                          sink.accept(word);
+                                      }
+                                  })
+                                  .toList();
+
+        System.out.println("words: " + words);
+    }
+
+    /**
      * 主方法：运行所有示例
      */
     public static void main(String[] args) {
@@ -90,6 +111,7 @@ public class JDK23FeaturesExample {
         example1_StreamEnhancements();
         example2_CollectionsImprovements();
         example3_RealWorldUsage();
+        example4_MapMultiStyle();
         
         System.out.println("\n========== 示例运行完成 ==========");
     }

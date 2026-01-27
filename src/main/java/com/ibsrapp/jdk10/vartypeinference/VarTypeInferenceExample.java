@@ -207,6 +207,27 @@ public class VarTypeInferenceExample {
         
         System.out.println("建议：在类型明显或能提高可读性时使用var");
     }
+
+    /**
+     * 示例8：var与钻石操作符的陷阱
+     * 使用var + <> 可能推断为Object，降低类型安全
+     */
+    public static void example8_DiamondPitfall() {
+        System.out.println("\n=== 示例8：var与钻石操作符的陷阱 ===");
+
+        // var + <> will infer ArrayList<Object>
+        var mixedList = new ArrayList<>();
+        mixedList.add("text");
+        mixedList.add(123);
+
+        System.out.println("mixedList type: " + mixedList.getClass().getSimpleName());
+        System.out.println("mixedList content: " + mixedList);
+
+        // Preferred: specify the generic type on the right side
+        var stringList = new ArrayList<String>();
+        stringList.add("only-string");
+        System.out.println("stringList content: " + stringList);
+    }
     
     private static String processData() {
         return "处理后的数据";
@@ -225,6 +246,7 @@ public class VarTypeInferenceExample {
         example5_RealWorldUsage();
         example6_Limitations();
         example7_BestPractices();
+        example8_DiamondPitfall();
         
         System.out.println("\n========== 示例运行完成 ==========");
     }

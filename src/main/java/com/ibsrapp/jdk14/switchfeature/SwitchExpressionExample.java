@@ -151,6 +151,26 @@ public class SwitchExpressionExample {
     }
 
     /**
+     * 示例5：枚举与穷尽性
+     * 使用枚举可以让switch表达式更清晰
+     */
+    enum TrafficLight {
+        RED, YELLOW, GREEN
+    }
+
+    public static void example5_EnumExhaustiveness() {
+        System.out.println("\n=== 示例5：枚举与穷尽性 ===");
+
+        TrafficLight light = TrafficLight.GREEN;
+        String action = switch (light) {
+            case RED -> "STOP";
+            case YELLOW -> "SLOW_DOWN";
+            case GREEN -> "GO";
+        };
+        System.out.println("Light: " + light + ", action: " + action);
+    }
+
+    /**
      * 主方法：运行所有示例
      */
     public static void main(String[] args) {
@@ -160,6 +180,7 @@ public class SwitchExpressionExample {
         example2_Yield();
         example3_Comparison();
         example4_RealWorldUsage();
+        example5_EnumExhaustiveness();
         
         System.out.println("\n========== 示例运行完成 ==========");
     }

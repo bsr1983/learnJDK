@@ -106,6 +106,21 @@ public class StringTemplatesExample {
     }
 
     /**
+     * 示例5：预览特性使用提示
+     * 给出可运行的替代方案与开启方式
+     */
+    public static void example5_PreviewFlags() {
+        System.out.println("\n=== 示例5：预览特性使用提示 ===");
+        System.out.println("Compile: javac --enable-preview --release 22 StringTemplatesExample.java");
+        System.out.println("Run:     java --enable-preview com.ibsrapp.jdk22.stringtemplates.StringTemplatesExample");
+
+        // Fallback: use String.format when preview features are disabled
+        String name = "Preview";
+        String msg = String.format("Hello, %s!", name);
+        System.out.println("Fallback format: " + msg);
+    }
+
+    /**
      * 主方法：运行所有示例
      */
     public static void main(String[] args) {
@@ -117,6 +132,7 @@ public class StringTemplatesExample {
         example2_MultilineStringTemplates();
         example3_Expressions();
         example4_RealWorldUsage();
+        example5_PreviewFlags();
         
         System.out.println("\n========== 示例运行完成 ==========");
     }

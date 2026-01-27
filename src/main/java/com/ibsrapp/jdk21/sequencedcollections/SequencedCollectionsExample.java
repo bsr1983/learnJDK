@@ -161,6 +161,25 @@ public class SequencedCollectionsExample {
     }
 
     /**
+     * 示例6：反向视图的写操作
+     * reversed()返回的是视图，写操作会影响原集合
+     */
+    public static void example6_ReversedViewMutation() {
+        System.out.println("\n=== 示例6：反向视图的写操作 ===");
+
+        SequencedMap<String, Integer> map = new LinkedHashMap<>();
+        map.put("one", 1);
+        map.put("two", 2);
+        map.put("three", 3);
+
+        SequencedMap<String, Integer> reversed = map.reversed();
+        reversed.putFirst("zero", 0);
+
+        System.out.println("original map: " + map);
+        System.out.println("reversed view: " + reversed);
+    }
+
+    /**
      * 主方法：运行所有示例
      */
     public static void main(String[] args) {
@@ -171,6 +190,7 @@ public class SequencedCollectionsExample {
         example3_SequencedMap();
         example4_Reversed();
         example5_RealWorldUsage();
+        example6_ReversedViewMutation();
         
         System.out.println("\n========== 示例运行完成 ==========");
     }

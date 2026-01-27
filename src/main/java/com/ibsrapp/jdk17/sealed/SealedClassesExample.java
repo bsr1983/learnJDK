@@ -200,6 +200,46 @@ public class SealedClassesExample {
     }
 
     /**
+     * 示例5：non-sealed子类
+     * 展示如何开放部分继承层次
+     */
+    sealed interface Payment permits CardPayment, CashPayment, OnlinePayment {
+        String type();
+    }
+
+    final static class CardPayment implements Payment {
+        public String type() {
+            return "CARD";
+        }
+    }
+
+    final static class CashPayment implements Payment {
+        public String type() {
+            return "CASH";
+        }
+    }
+
+    non-sealed static class OnlinePayment implements Payment {
+        public String type() {
+            return "ONLINE";
+        }
+    }
+
+    static class PaypalPayment extends OnlinePayment {
+        @Override
+        public String type() {
+            return "PAYPAL";
+        }
+    }
+
+    public static void example5_NonSealed() {
+        System.out.println("\n=== 示例5：non-sealed子类 ===");
+
+        Payment payment = new PaypalPayment();
+        System.out.println("payment type: " + payment.type());
+    }
+
+    /**
      * 主方法：运行所有示例
      */
     public static void main(String[] args) {
@@ -209,6 +249,7 @@ public class SealedClassesExample {
         example2_WithPatternMatching();
         example3_Hierarchy();
         example4_StateMachine();
+        example5_NonSealed();
         
         System.out.println("\n========== 示例运行完成 ==========");
     }

@@ -171,6 +171,31 @@ public class VirtualThreadsExample {
     }
 
     /**
+     * 示例6：ThreadLocal与虚拟线程
+     * 虚拟线程仍然支持ThreadLocal，但需要注意清理
+     */
+    public static void example6_ThreadLocal() throws InterruptedException {
+        System.out.println("\n=== 示例6：ThreadLocal与虚拟线程 ===");
+
+        ThreadLocal<String> traceId = new ThreadLocal<>();
+
+        try (ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor()) {
+            Future<?> task = executor.submit(() -> {
+                traceId.set("trace-001");
+                try {
+                    System.out.println("traceId in virtual thread: " + traceId.get());
+                } finally {
+                    // Always clean up to avoid leakage in reused carriers
+                    traceId.remove();
+                }
+            });
+            task.get();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * 主方法：运行所有示例
      */
     public static void main(String[] args) {
@@ -182,6 +207,7 @@ public class VirtualThreadsExample {
             example3_HighConcurrency();
             example4_Comparison();
             example5_RealWorldUsage();
+            example6_ThreadLocal();
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             e.printStackTrace();

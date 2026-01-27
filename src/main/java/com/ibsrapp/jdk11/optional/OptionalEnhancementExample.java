@@ -92,6 +92,28 @@ public class OptionalEnhancementExample {
     }
 
     /**
+     * 示例4：使用isEmpty作为保护条件
+     * 将Optional作为校验入口，避免多次get()
+     */
+    public static void example4_GuardUsage() {
+        System.out.println("\n=== 示例4：使用isEmpty作为保护条件 ===");
+
+        Optional<String> token = Optional.of("token-123");
+        Optional<String> missingToken = Optional.empty();
+
+        validateToken(token);
+        validateToken(missingToken);
+    }
+
+    private static void validateToken(Optional<String> token) {
+        if (token.isEmpty()) {
+            System.out.println("Token is missing");
+            return;
+        }
+        System.out.println("Token is present: " + token.get());
+    }
+
+    /**
      * 辅助方法：模拟查找用户
      */
     private static Optional<String> findUser(String username) {
@@ -110,6 +132,7 @@ public class OptionalEnhancementExample {
         example1_IsEmpty();
         example2_Readability();
         example3_RealWorldUsage();
+        example4_GuardUsage();
         
         System.out.println("\n========== 示例运行完成 ==========");
     }

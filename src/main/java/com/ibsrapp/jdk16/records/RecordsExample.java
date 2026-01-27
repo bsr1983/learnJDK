@@ -200,6 +200,24 @@ public class RecordsExample {
     }
 
     /**
+     * 示例7：泛型Record
+     * 使用泛型提高复用性
+     */
+    record Pair<T>(T left, T right) {
+        public Pair<T> swap() {
+            return new Pair<>(right, left);
+        }
+    }
+
+    public static void example7_GenericRecord() {
+        System.out.println("\n=== 示例7：泛型Record ===");
+
+        Pair<String> pair = new Pair<>("left", "right");
+        System.out.println("pair: " + pair);
+        System.out.println("swapped: " + pair.swap());
+    }
+
+    /**
      * 主方法：运行所有示例
      */
     public static void main(String[] args) {
@@ -211,6 +229,7 @@ public class RecordsExample {
         example4_NestedRecords();
         example5_RealWorldUsage();
         example6_Comparison();
+        example7_GenericRecord();
         
         System.out.println("\n========== 示例运行完成 ==========");
     }

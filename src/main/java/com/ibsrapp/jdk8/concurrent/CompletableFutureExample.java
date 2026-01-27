@@ -2,6 +2,8 @@ package com.ibsrapp.jdk8.concurrent;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
 
@@ -265,6 +267,43 @@ public class CompletableFutureExample {
     }
 
     /**
+     * 示例8：anyOf() + 自定义执行器
+     * 展示最快完成任务与自定义线程池的使用
+     */
+    public static void example8_AnyOfWithExecutor() throws ExecutionException, InterruptedException {
+        System.out.println("\n=== 示例8：anyOf() + 自定义执行器 ===");
+
+        ExecutorService executor = Executors.newFixedThreadPool(2);
+        try {
+            Supplier<String> slowTask = () -> {
+                try {
+                    Thread.sleep(300);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+                return "slow-result";
+            };
+
+            Supplier<String> fastTask = () -> {
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+                return "fast-result";
+            };
+
+            CompletableFuture<String> future1 = CompletableFuture.supplyAsync(slowTask, executor);
+            CompletableFuture<String> future2 = CompletableFuture.supplyAsync(fastTask, executor);
+
+            CompletableFuture<Object> firstDone = CompletableFuture.anyOf(future1, future2);
+            System.out.println("First completed result: " + firstDone.get());
+        } finally {
+            executor.shutdown();
+        }
+    }
+
+    /**
      * 主方法：运行所有示例
      */
     public static void main(String[] args) {
@@ -278,6 +317,7 @@ public class CompletableFutureExample {
             example5_AsyncCallbacks();
             example6_Timeout();
             example7_RealWorldUsage();
+            example8_AnyOfWithExecutor();
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -82,6 +82,26 @@ public class JDK24FeaturesExample {
     }
 
     /**
+     * 示例4：小而实用的API用法
+     * 展示现代API组合使用的可读性
+     */
+    public static void example4_SmallApiUsages() {
+        System.out.println("\n=== 示例4：小而实用的API用法 ===");
+
+        Map<String, String> config = Map.of(
+            "host", "localhost",
+            "port", "8080"
+        );
+
+        String endpoint = "http://%s:%s/api".formatted(config.get("host"), config.get("port"));
+        System.out.println("endpoint: " + endpoint);
+
+        List<String> names = List.of("Alice", "Bob");
+        List<String> copy = List.copyOf(names);
+        System.out.println("copy: " + copy);
+    }
+
+    /**
      * 主方法：运行所有示例
      */
     public static void main(String[] args) {
@@ -92,6 +112,7 @@ public class JDK24FeaturesExample {
         example1_APIImprovements();
         example2_CollectionOperations();
         example3_RealWorldUsage();
+        example4_SmallApiUsages();
         
         System.out.println("\n========== 示例运行完成 ==========");
     }
